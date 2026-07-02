@@ -6,12 +6,12 @@
 
 Review scraping plans for robots, rate limits, and data-use constraints. It solves review drift by turning plain-text plans into deterministic CI-friendly findings.
 
-## Input Contract 46
+## Input Contract
 
 Accepts scraping plan. The reader supports plain text, JSON, JSONL, and CSV so the
 tool can fit into scripts, CI jobs, and review exports.
 
-## CLI Walkthrough 46
+## CLI Walkthrough
 
 ```bash
 python -m pip install -e ".[dev]"
@@ -20,7 +20,7 @@ web-scrape-ethics-check examples/sample.txt --json --fail-on medium
 python -m web_scrape_ethics_check --help
 ```
 
-## Rule Surface 46
+## Rule Surface
 
 | Rule | Severity | Meaning |
 |---|---:|---|
@@ -28,7 +28,7 @@ python -m web_scrape_ethics_check --help
 | `no-rate-limit` | medium | rate limit missing |
 | `personal-data` | low | personal data may be scraped |
 
-## Validation Notes 46
+## Validation Notes
 
 ```bash
 ruff check .
