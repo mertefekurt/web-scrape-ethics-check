@@ -1,48 +1,50 @@
-# web-scrape-ethics-check
+<p align="center">
+  <img src="assets/readme-cover.svg" alt="Web Scrape Ethics Check cover" width="100%" />
+</p>
 
-> Review scraping plans for robots, rate limits, and data-use constraints.
+# Web Scrape Ethics Check
 
-## Runbook Overview
+![stack](https://img.shields.io/badge/stack-Python-2563eb?style=flat-square) ![python](https://img.shields.io/badge/python-3.11-16a34a?style=flat-square) ![license](https://img.shields.io/badge/license-MIT-dc2626?style=flat-square) ![ci](https://img.shields.io/badge/ci-GitHub%20Actions-7c3aed?style=flat-square)
 
-Review scraping plans for robots, rate limits, and data-use constraints. It solves review drift by turning plain-text plans into deterministic CI-friendly findings.
+Review scraping plans for robots, rate limits, and data-use constraints.
 
-## Input Contract
+## Why it exists
 
-Accepts scraping plan. The reader supports plain text, JSON, JSONL, and CSV so the
-tool can fit into scripts, CI jobs, and review exports.
+Small review tasks are easy to skip when the signal lives in notes, spreadsheets, or loosely formatted exports. `web-scrape-ethics-check` turns those checks into a repeatable command with plain findings and CI-friendly exit codes.
 
-## CLI Walkthrough
+## Quick run
 
 ```bash
 python -m pip install -e ".[dev]"
 web-scrape-ethics-check examples/sample.txt
 web-scrape-ethics-check examples/sample.txt --json --fail-on medium
-python -m web_scrape_ethics_check --help
 ```
 
-## Rule Surface
+## Rule set
 
-| Rule | Severity | Meaning |
-|---|---:|---|
+| Rule | Severity | What it catches |
+| --- | --- | --- |
 | `robots-unknown` | high | robots policy unknown |
 | `no-rate-limit` | medium | rate limit missing |
 | `personal-data` | low | personal data may be scraped |
 
-## Validation Notes
+## Input
 
-```bash
-ruff check .
-pytest
-python -m web_scrape_ethics_check --help
-```
+The reader accepts plain text, JSON, JSONL, and CSV. That keeps it useful for hand-written notes, review exports, and small automation jobs.
 
-Example risky input:
+## Sample risky input
 
 ```text
 robots unknown rate_limit none personal_data true
 ```
 
-Architecture: `cli.py` handles arguments, `core.py` reads and evaluates records, and
-`rules.py` keeps the project-specific policy explicit.
+## Development
 
-License: MIT.
+```bash
+python -m pip install -e ".[dev]"
+ruff check .
+pytest
+python -m web_scrape_ethics_check --help
+```
+
+`cli.py` handles arguments, `core.py` reads and evaluates records, and `rules.py` keeps the Web Scrape Ethics Check policy easy to review.
